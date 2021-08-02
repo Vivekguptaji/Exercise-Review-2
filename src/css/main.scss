@@ -1,0 +1,179 @@
+$default_color: #333;
+$btn_color: #888;
+$body_bcg: #fff;
+$default_font_family: sans-serif;
+$default_font_size: 15px;
+$default_height: 18px;
+$initial_width: 375px;
+@mixin common_color_family {
+  font-family: inherit; 
+  outline: none;
+  color: $btn_color;
+}
+
+body {
+  background: $body_bcg;
+  color: $default_color;
+  font-family: $default_font_family;
+}
+
+#container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 5% auto 0;
+  flex-flow: column;
+}
+
+.addToDo_label {
+  display: block;
+  margin: 0 0 20px !important;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+  li.editMode {
+    input[type="text"] {
+      display: block;
+    }
+    label {
+      display: none;
+    }
+  }
+}
+
+li {
+  overflow: hidden;
+  padding: 20px 0px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  list-style: none;
+  outline: none;
+  input[type="text"] {
+    display: none;
+  }
+  h3 {
+    clear: both;
+  }
+  & > input[type="checkbox"] {
+    margin: 0 10px;
+    position: relative;
+    top: 15px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    &:focus-visible {
+      outline-color: #eae8e8;
+    }
+  }
+  & > label {
+    font-size: $default_font_size + 3px;
+    line-height: $default_height + 22px;
+    width: 65%;
+    padding: 0 0 0 11px;
+  }
+  & > input[type="text"] {
+    width: 63%;
+  }
+  & > .delete:hover {
+    color: #cf2323;
+  }
+}
+
+button {
+  background: none;
+  border: 0px;
+  font-size: $default_font_size;
+  width: 60px;
+  margin: 10px 5px 2px;
+  @include common_color_family;
+  cursor: pointer;
+  &:hover {
+    color: $default_color;
+  }
+  &:focus {
+    border: 1px solid #eae8e8;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px 0px #eae8e8;
+  }
+}
+
+/* Heading */
+.incompleted_h3 {
+  padding: 0px 0 10px;
+}
+h3,
+label[for="new-task"] {
+  color: $default_color;
+  font-weight: 700;
+  font-size: $default_font_size;
+  border-bottom: 2px solid $default_color;
+  padding: 30px 0 10px;
+  margin: 0px;
+  text-transform: uppercase;
+}
+
+input {
+  &[type="text"] {
+    margin: 0;
+    font-size: $default_font_size + 3px;
+    line-height: $default_height;
+    height: $default_height;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: $body_bcg;
+    border-radius: 6px;
+    @include common_color_family;
+    &:focus {
+      color: $default_color;
+    }
+  }
+}
+
+#new-task {
+  width: 58%;
+}
+
+p > button:hover {
+  color: #0fc57c;
+}
+
+.todo_span {
+  display: flex;
+  padding-top: 5px;
+  color: #ab0606;
+  font-size: $default_font_size - 2px;
+  margin: 3px 5px 0px;
+  visibility: hidden;
+}
+.todo_span_show {
+  @extend .todo_span;
+  visibility: visible;
+}
+.todo_span_show_el {
+  @extend .todo_span_show;
+  position: fixed;
+  margin: 36px;
+}
+.input_error {
+  border: 1px solid #e69494 !important;
+}
+/* Completed */
+#completed-tasks label {
+  text-decoration: line-through;
+  color: $btn_color;
+}
+input::placeholder {
+  font-size: $default_font_size - 2px;
+}
+@media (max-width: $initial_width) {
+  #container {
+    width: 100%;
+  }
+}
+@media (min-width: $initial_width) {
+  #container {
+    width: $initial_width - 5px;
+  }
+}
