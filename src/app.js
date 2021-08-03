@@ -65,6 +65,7 @@
       let labelEl = document.createElement(this.enums.element_type.label);
       (labelEl.id = id),
         (labelEl.htmlFor = htmlFor),
+        (labelEl.ariaLabel = htmlFor),
         (labelEl.className = className),
         (labelEl.innerHTML = innerHTML);
       return labelEl;
@@ -74,6 +75,8 @@
       let buttonEl = document.createElement(this.enums.element_type.button);
       (buttonEl.innerText = innerText),
         (buttonEl.onclick = clickFn),
+        (buttonEl.ariaLabel = innerText),
+        (buttonEl.ariaRoleDescription = "button"),
         (buttonEl.className = className);
       return buttonEl;
     },
@@ -88,6 +91,9 @@
       if (type === this.enums.element_type.checkbox) {
         inputEl.ariaChecked =
           value === this.enums.status.incompleted ? false : true;
+        inputEl.ariaLabel = "checkbox";
+      } else {
+        inputEl.ariaLabel = "textbox";
       }
       return inputEl;
     },
@@ -138,7 +144,7 @@
       );
       let label_el = this.createLabel(
         item.id + "_" + this.enums.element_type.label,
-        item.id + "_text",
+        item.name,
         "",
         item.name
       );
@@ -257,7 +263,7 @@
       /*Create list item section based on status */
       let contianerEl = document.getElementById(this.enums.main_container_id);
       let h3_el = this.createH3(
-        `<b>${header}</b>`,
+        `<label aria-label="${header}">${header}</label>`,
         this.enums.status[type] === this.enums.status.incompleted
           ? this.enums.incompleted_h3_cls
           : this.enums.completed_h3_cls
@@ -298,6 +304,8 @@
         this.enums.todo_span_cls
       );
       inputEl.placeholder = this.enums.todo_placeholder;
+      inputEl.ariaLabel = this.enums.todo_placeholder;
+      inputEl.ariaRoleDescription = "textbox";
       inputEl.onkeypress = (el) => {
         let span = span_el;
         let ipt_el = el.srcElement;
